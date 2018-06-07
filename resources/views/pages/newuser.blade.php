@@ -79,10 +79,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="name" class="col-sm-2 control-label">Usuário</label>
+                                        <label for="user" class="col-sm-2 control-label">Usuário</label>
 
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" id="name" placeholder="usuário" name="user">
+                                            <input type="text" class="form-control" id="user" placeholder="usuário" name="user">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -113,16 +113,16 @@
                                     
                                     
                                     <div class="form-group">
-                                        <label for="inputExperience" class="col-sm-2 control-label">Tipo</label>
+                                        <label for="type" class="col-sm-2 control-label">Tipo</label>
 
                                         <div class="col-sm-2">
                                             <select class="form-control select2" style="width: 100%;" name="type" id="type">
                                                 @if (Auth::User()->type == 'admin')
                                                 <option value="admin" selected="selected">Admin</option>
-                                                <option value="autor">User</option>
+                                                <option value="user">User</option>
                                                 @else
                                                 <option value="admin">Admin</option>
-                                                <option value="autor" selected="selected">Autor</option>
+                                                <option value="user" selected="selected">Autor</option>
                                                 @endif
                                             </select>
                                         </div>

@@ -57,7 +57,7 @@
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header @if ($users->type == 'admin') bg-primary @else bg-warning @endif">
                         <div class="widget-user-image ">
-                            <img class="img-circle elevation-2" src="{{ url('storage/users/'.$users->image) }}" alt="Imagem de {{ $users->name }}">
+                            <img class="img-circle elevation-2" src="{{ url('storage/users/' . $users->id . '/' .$users->image) }}" alt="Imagem de {{ $users->name }}">
                         </div>
                         <!-- /.widget-user-image -->
                         <h3 class="widget-user-username">{{ $users->name }}</h3>
@@ -86,7 +86,7 @@
                                 <a href="{{ url('usuarios', $users->id) }}/perfil" class="nav-link float-left bg-warning">
                                     Editar
                                 </a>
-                                @if ($users->type == 'autor')
+                                @if ($users->type == 'user')
                                 <a href="{{ url('usuarios/delete', $users->id) }}" class="nav-link float-right bg-danger">
                                     Excluir
                                 </a>

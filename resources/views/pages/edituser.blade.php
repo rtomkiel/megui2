@@ -31,7 +31,7 @@
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <img class="profile-user-img img-fluid img-circle"
-                                 src="{{ url('storage/users/'.$userid->image) }}"
+                                 src="{{ url('storage/users/' . $userid->id . '/' .$userid->image) }}"
                                  alt="User profile picture">
                         </div>
 
@@ -79,10 +79,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="name" class="col-sm-2 control-label" >Usuário</label>
-
+                                        <label for="user" class="col-sm-2 control-label" >Usuário</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="name" placeholder="usuário" name="user" disabled="" value="{{ $userid->user}}">
+                                            <input type="text" class="form-control" id="user" placeholder="usuário" name="user" disabled="" value="{{ $userid->user}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -116,10 +115,10 @@
                                             <select class="form-control select2" style="width: 100%;" name="type" id="type">
                                                 @if($userid->type == 'admin')
                                                 <option value="admin" selected="selected">Admin</option>
-                                                <option value="autor">Autor</option>
+                                                <option value="user">Autor</option>
                                                 @else
                                                 <option value="admin">Admin</option>
-                                                <option value="autor" selected="selected">Autor</option>
+                                                <option value="user" selected="selected">Autor</option>
                                                 @endif
                                             </select>
                                         </div>

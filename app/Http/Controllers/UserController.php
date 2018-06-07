@@ -28,33 +28,31 @@ class UserController extends Controller {
         $user = new \App\User();
 
         $user->name = Request::get('name');
-        $user->user = Request::get('user');
         $user->email = Request::get('email');
+        $user->user = Request::get('user');
         $user->type = Request::get('type');
-        $user->image = Request::get('image');
+
         $user->password = \Illuminate\Support\Facades\Hash::make(Request::get('password'));
-        
+
+        $user->image = Request::file('image');
+
+        //dd(Request::get('type'));
+
         $data['image'] = $user->image;
-        
+
         if (Request::hasFile('image') && Request::file('image')->isValid())
         {
-            if ($user->image) {
-                $name = $user->name;
-                
-            }
-            else {
-                $name = $user->id.kebab_case($user->user);
-                $extenstion = \File::extension($user->image);
-                $nameFile = "{$name}-{$user->user}.{$extenstion}";
-                $user->image = $nameFile;
 
-                $upload = $request->image->storeAs('users', $nameFile);
-                
-                if(!$upload) {
-                    return redirect()->back()->with('error', 'Falha ao carregar imagem');
-                }
+            $name = md5(uniqid());
+            $ext = $user->image->getClientOriginalExtension();
+            $path = "$name.{$ext}";
+            $user->image = "$name.{$ext}";
+            $upload = $request->image->storeAs('users', $path);
+
+            if(!$upload) {
+                return redirect()->back()->with('error', 'Falha ao carregar imagem');
             }
-                
+
         }
         
         $user->save();
@@ -80,16 +78,19 @@ class UserController extends Controller {
     }
 
     public function postEdit(\Illuminate\Http\Request $request) {
+
         $user = \App\User::find(Request::get('id'));
         $user->name = Request::get('name');
         $user->email = Request::get('email');
-        $user->user = Request::get('user');
-        $user->image = Request::get('image');
-        
+        $user->image = $request->image;
+
         $id = $user;
+
+
         if (Request::get('password')) {
             $user->password = \Illuminate\Support\Facades\Hash::make(Request::get('password'));
         }
+
         if (Request::get('type')) {
             $user->type = (Request::get('type'));
         }
@@ -98,24 +99,19 @@ class UserController extends Controller {
         
         if (Request::hasFile('image') && Request::file('image')->isValid())
         {
-            if ($user->image) {
-                $name = $user->image;
-                
-            }
-            else {
-                $name = $user->id.kebab_case($user->user);
-                $extenstion = \File::extension($user->image);
-                $nameFile = "{$name}-{$user->user}.{$extenstion}";
-                $user->image = $nameFile;
 
-                $upload = $request->image->storeAs('users', $nameFile);
+                $name = md5(uniqid());
+                $ext = $user->image->getClientOriginalExtension();
+                $path = "{$user->id}/$name.{$ext}";
+                $user->image = "$name.{$ext}";
+                $upload = $request->image->storeAs('users', $path);
                 
                 if(!$upload) {
                     return redirect()->back()->with('error', 'Falha ao carregar imagem');
                 }
-            }
                 
         }
+
 
         $user->save();
 
